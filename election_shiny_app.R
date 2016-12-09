@@ -36,6 +36,24 @@ boone.points <- fortify(boone, region='id')
 boone.df <- inner_join(boone.points, boone@data, by='id')
 boone.df <- mutate(boone.df, region=PRECINCTCD)
 
+kenton <-readOGR(dsn='./shapefiles/kenton', layer='OGRGeoJSON')
+kenton@data$id <- rownames(kenton@data)
+kenton.points <- fortify(kenton, region='id')
+kenton.df <- inner_join(kenton.points, kenton@data, by='id')
+kenton.df <- mutate(kenton.df, region=publishe_3)
+
+pendleton <-readOGR(dsn='./shapefiles/pendleton', layer='OGRGeoJSON')
+pendleton@data$id <- rownames(pendleton@data)
+pendleton.points <- fortify(pendleton, region='id')
+pendleton.df <- inner_join(pendleton.points, pendleton@data, by='id')
+pendleton.df <- mutate(pendleton.df, region=publishe_1)
+
+campbell <-readOGR(dsn='./shapefiles/campbell', layer='OGRGeoJSON')
+campbell@data$id <- rownames(campbell@data)
+campbell.points <- fortify(campbell, region='id')
+campbell.df <- inner_join(campbell.points, campbell@data, by='id')
+campbell.df <- mutate(campbell.df, region=publishe_4)
+
 # Load in Elections
 elections<-list(
   President_Jefferson=read_csv('./elections/jefferson/President.csv'),
@@ -112,21 +130,63 @@ elections<-list(
   KYSC5=read_csv('./elections/fayette/KYSC5.csv'),
   President_Boone=read_csv('./elections/boone/President.csv'),
   USSen_Boone=read_csv('./elections/boone/USSen_boone.csv'),
-  President_Boone=read_csv('./elections/boone/President.csv'),
   USHouse4_Boone=read_csv('./elections/boone/USHouse4_boone.csv'),
   Sen11=read_csv('./elections/boone/Sen11.csv'),
   House60=read_csv('./elections/boone/House60.csv'),
-  House61=read_csv('./elections/boone/House61.csv'),
-  House63=read_csv('./elections/boone/House63.csv'),
+  House61_Boone=read_csv('./elections/boone/House61.csv'),
+  House63_Boone=read_csv('./elections/boone/House63.csv'),
   House66=read_csv('./elections/boone/House66.csv'),
-  House69=read_csv('./elections/boone/House69.csv'),
+  House69_Boone=read_csv('./elections/boone/House69.csv'),
   BCBOE1=read_csv('./elections/boone/BoardOfEducation1.csv'),
   BCBOE2=read_csv('./elections/boone/BoardOfEducation2.csv'),
   BCBOE3=read_csv('./elections/boone/BoardOfEducation3.csv'),
   WVBOE=read_csv('./elections/boone/WaltonVeronaSchoolBoard.csv'),
   UnionCommissioner=read_csv('./elections/boone/UnionCityCommissioners.csv'),
   FlorenceCityCouncil=read_csv('./elections/boone/FlorenceCityCouncil.csv'),
-  WaltonCityCouncil=read_csv('./elections/boone/WaltonCityCouncil.csv')
+  WaltonCityCouncil=read_csv('./elections/boone/WaltonCityCouncil.csv'),
+  President_Kenton=read_csv('./elections/kenton/President.csv'),
+  USSen_Kenton=read_csv('./elections/kenton/USSen.csv'),
+  USHouse4_Kenton=read_csv('./elections/kenton/USHouse4.csv'),
+  Sen17=read_csv('./elections/kenton/Sen17.csv'),
+  Sen23=read_csv('./elections/kenton/Sen23.csv'),
+  House61_Kenton=read_csv('./elections/kenton/House61.csv'),
+  House63_Kenton=read_csv('./elections/kenton/House63.csv'),
+  House64_Kenton=read_csv('./elections/kenton/House64.csv'),
+  House65=read_csv('./elections/kenton/House65.csv'),
+  House69_Kenton=read_csv('./elections/kenton/House69.csv'),
+  KCBOE1=read_csv('./elections/kenton/BOE1.csv'),
+  KCBOE2=read_csv('./elections/kenton/BOE2.csv'),
+  KCBOE5=read_csv('./elections/kenton/BOE5.csv'),
+  ErlangerElsmereBOE=read_csv('./elections/kenton/ErlangerElsmereBOE.csv'),
+  ErlangerElsmereBOEUE=read_csv('./elections/kenton/ErlangerElsmereBOE-UE.csv'),
+  CovingtonBOE=read_csv('./elections/kenton/CovingtonBOE.csv'),
+  LudlowBOE=read_csv('./elections/kenton/LudlowBOE.csv'),
+  BeechwoodBOE=read_csv('./elections/kenton/BeechwoodBOE.csv'),
+  CovingtonMayor=read_csv('./elections/kenton/CovingtonMayor.csv'),
+  CovingtonComission=read_csv('./elections/kenton/CovingtonCityCommission.csv'),
+  BromleyCouncil=read_csv('./elections/kenton/BromleyCityCouncil.csv'),
+  CrecentSpringsCouncil=read_csv('./elections/kenton/CrescentSpringsCityCouncil.csv'),
+  CresviewHillsCouncil=read_csv('./elections/kenton/CrestviewHillsCityCouncil.csv'),
+  President_Pendleton=read_csv('./elections/pendleton/President.csv'),
+  USSen_Pendleton=read_csv('./elections/pendleton/USSen.csv'),
+  USHouse4_Pendleton=read_csv('./elections/pendleton/USHouse4.csv'),
+  House78=read_csv('./elections/pendleton/House78.csv'),
+  FalmouthCouncil=read_csv('./elections/pendleton/FalmouthCityCouncil.csv'),
+  ButlerCouncil=read_csv('./elections/pendleton/ButlerCityCouncil.csv'),
+  President_Campbell=read_csv('./elections/campbell/President.csv'),
+  USSen_Campbell=read_csv('./elections/campbell/USSen.csv'),
+  USHouse4_Campbell=read_csv('./elections/campbell/USHouse4.csv'),
+  House64_Campbell=read_csv('./elections/campbell/House64.csv'),
+  House67=read_csv('./elections/campbell/House67.csv'),
+  House68=read_csv('./elections/campbell/House68.csv'),
+  CCBOE2=read_csv('./elections/campbell/BOE2.csv'),
+  CCBOE3=read_csv('./elections/campbell/BOE3.csv'),
+  CCBOE5=read_csv('./elections/campbell/BOE5.csv'),
+  CCDistrictJudge=read_csv('./elections/campbell/DistrictJudge.csv'),
+  FtThomasCouncil=read_csv('./elections/campbell/FtThomasCouncil.csv'),
+  HighlandHeightsCouncil=read_csv('./elections/campbell/HHCouncil.csv'),
+  NewportCommission=read_csv('./elections/campbell/NewportCommission.csv'),
+  NewportMayor=read_csv('./elections/campbell/NewportMayor.csv')
 )
 
 # Function for creating leaflet
@@ -143,6 +203,18 @@ create_leaflet <- function(election, candidates, colors, county){
     shape<-subset(boone, PRECINCTCD %in% election$Precinct, select=c('PRECINCTCD','id'))
     shape$precinct <- shape$PRECINCTCD
     lng_lat<-c(-84.7316,38.9941)
+  }else if(county=='kenton'){
+    shape<-subset(kenton, publishe_3 %in% election$Precinct, select=c('publishe_3', 'id'))
+    shape$precinct<-shape$publishe_3
+    lng_lat<-c(-84.5641,38.9864)
+  }else if(county=='pendleton'){
+    shape<-subset(pendleton, publishe_2 %in% election$Precinct, select=c('publishe_2', 'id'))
+    shape$precinct<-shape$publishe_2
+    lng_lat<-c(-84.3963,38.7283)
+  }else if(county=='campbell'){
+    shape<-subset(campbell, publishe_4 %in% election$Precinct, select=c('publishe_4','id'))
+    shape$precinct<-shape$publishe_4
+    lng_lat<-c(-84.3963,38.8952)
   }
   election$winner<-sapply(1:length(election$Precinct), function(i){
     if(which(election[i,2:length(election)] == max(election[i,2:length(election)])) %>% length() > 1){
@@ -260,17 +332,60 @@ leaflets<-list(
   USHouse4_Boone=create_leaflet(elections$USHouse4_Boone, names(elections$USHouse4_Boone[2:3]),c('red','blue'), 'boone'),
   Sen11=create_leaflet(elections$Sen11, names(elections$Sen11[2]),'red', 'boone'),
   House60=create_leaflet(elections$House60, names(elections$House60[2]),'red', 'boone'),
-  House61=create_leaflet(elections$House61, names(elections$House61[2:3]),c('red','blue'), 'boone'),
-  House63=create_leaflet(elections$House63, names(elections$House63[2]),'red', 'boone'),
+  House61_Boone=create_leaflet(elections$House61_Boone, names(elections$House61_Boone[2:3]),c('red','blue'), 'boone'),
+  House63_Boone=create_leaflet(elections$House63_Boone, names(elections$House63_Boone[2]),'red', 'boone'),
   House66=create_leaflet(elections$House66, names(elections$House66[2]),'red', 'boone'),
-  House69=create_leaflet(elections$House69, names(elections$House69[2]),'red', 'boone'),
+  House69_Boone=create_leaflet(elections$House69_Boone, names(elections$House69_Boone[2]),'red', 'boone'),
   BCBOE1=create_leaflet(elections$BCBOE1, names(elections$BCBOE1[2]),'purple', 'boone'),
   BCBOE2=create_leaflet(elections$BCBOE2, names(elections$BCBOE2[2]),'purple', 'boone'),
   BCBOE3=create_leaflet(elections$BCBOE3, names(elections$BCBOE3[2]),'purple', 'boone'),
   WVBOE=create_leaflet(elections$WVBOE, names(elections$WVBOE[2:6]),c('purple','yellow','green','orange', 'brown'), 'boone'),
   UnionCommissioner=create_leaflet(elections$UnionCommissioner, names(elections$UnionCommissioner[2:6]),c('purple','yellow','green','orange', 'brown'), 'boone'),
   FlorenceCityCouncil=create_leaflet(elections$FlorenceCityCouncil, names(elections$FlorenceCityCouncil[2:12]),c('purple','yellow','green','orange', 'brown', 'hotpink','deepskyblue','burlywood','turquoise','darkslategray','yellowgreen'), 'boone'),
-  WaltonCityCouncil=create_leaflet(elections$WaltonCityCouncil, names(elections$WaltonCityCouncil[2:8]),c('purple','yellow','green','orange', 'brown', 'hotpink','deepskyblue'), 'boone')
+  WaltonCityCouncil=create_leaflet(elections$WaltonCityCouncil, names(elections$WaltonCityCouncil[2:8]),c('purple','yellow','green','orange', 'brown', 'hotpink','deepskyblue'), 'boone'),
+  President_Kenton=create_leaflet(elections$President_Kenton,names(elections$President_Kenton[2:7]),c('red','blue','yellow','orange','green','purple'), 'kenton'),
+  USSen_Kenton=create_leaflet(elections$USSen_Kenton, names(elections$USSen_Kenton[2:3]),c('red','blue'), 'kenton'),
+  USHouse4_Kenton=create_leaflet(elections$USHouse4_Kenton, names(elections$USHouse4_Kenton[2:3]),c('red','blue'), 'kenton'),
+  Sen17=create_leaflet(elections$Sen17, names(elections$Sen17[2:3]),c('red','blue'), 'kenton'),
+  Sen23=create_leaflet(elections$Sen23, names(elections$Sen23[2]),'red', 'kenton'),
+  House61_Kenton=create_leaflet(elections$House61_Kenton, names(elections$House61_Kenton[2:3]),c('red','blue'), 'kenton'),
+  House63_Kenton=create_leaflet(elections$House63_Kenton, names(elections$House63_Kenton[2]),'red', 'kenton'),
+  House64_Kenton=create_leaflet(elections$House64_Kenton, names(elections$House64_Kenton[2:3]),c('red','blue'), 'kenton'),
+  House65=create_leaflet(elections$House65, names(elections$House65[2]),'blue', 'kenton'),
+  House69_Kenton=create_leaflet(elections$House69_Kenton, names(elections$House69_Kenton[2]),'red', 'kenton'),
+  KCBOE1=create_leaflet(elections$KCBOE1, names(elections$KCBOE1[2:4]),c('purple','yellow','green'), 'kenton'),
+  KCBOE2=create_leaflet(elections$KCBOE2, names(elections$KCBOE2[2]),'purple', 'kenton'),
+  KCBOE5=create_leaflet(elections$KCBOE5, names(elections$KCBOE5[2]),'purple', 'kenton'),
+  ErlangerElsmereBOE=create_leaflet(elections$ErlangerElsmereBOE, names(elections$ErlangerElsmereBOE[2:3]),c('purple','yellow'), 'kenton'),
+  ErlangerElsmereBOEUE=create_leaflet(elections$ErlangerElsmereBOEUE, names(elections$ErlangerElsmereBOEUE[2:3]),c('purple','yellow'), 'kenton'),
+  CovingtonBOE=create_leaflet(elections$CovingtonBOE, names(elections$CovingtonBOE[2:6]),c('purple','yellow','green','orange', 'brown'), 'kenton'),
+  LudlowBOE=create_leaflet(elections$LudlowBOE, names(elections$LudlowBOE[2:3]),c('purple','yellow'), 'kenton'),
+  BeechwoodBOE=create_leaflet(elections$BeechwoodBOE, names(elections$BeechwoodBOE[2:3]),c('purple','yellow'), 'kenton'),
+  CovingtonMayor=create_leaflet(elections$CovingtonMayor, names(elections$CovingtonMayor[2:3]),c('purple','yellow'), 'kenton'),
+  CovingtonComission=create_leaflet(elections$CovingtonComission, names(elections$CovingtonComission[2:8]),c('purple','yellow','green','orange', 'brown', 'hotpink'),'kenton'),
+  BromleyCouncil=create_leaflet(elections$BromleyCouncil, names(elections$BromleyCouncil[2:10]),c('purple','yellow','green','orange', 'brown', 'hotpink','deepskyblue','burlywood','turquoise'),'kenton'),
+  CrecentSpringsCouncil=create_leaflet(elections$CrecentSpringsCouncil, names(elections$CrecentSpringsCouncil[2:8]),c('purple','yellow','green','orange', 'brown', 'hotpink','deepskyblue'),'kenton'),
+  CresviewHillsCouncil=create_leaflet(elections$CresviewHillsCouncil, names(elections$CresviewHillsCouncil[2:8]),c('purple','yellow','green','orange', 'brown', 'hotpink','deepskyblue'),'kenton'),
+  President_Pendleton=create_leaflet(elections$President_Pendleton,names(elections$President_Pendleton[2:7]),c('red','blue','yellow','orange','green','purple'), 'pendleton'),
+  USSen_Pendleton=create_leaflet(elections$USSen_Pendleton, names(elections$USSen_Pendleton[2:3]),c('red','blue'), 'pendleton'),
+  USHouse4_Pendleton=create_leaflet(elections$USHouse4_Pendleton, names(elections$USHouse4_Pendleton[2:3]),c('red','blue'), 'pendleton'),
+  House78=create_leaflet(elections$House78, names(elections$House78[2:3]),c('red','blue'), 'pendleton'),
+  FalmouthCouncil=create_leaflet(elections$FalmouthCouncil, names(elections$FalmouthCouncil[2:12]),c('purple','yellow','green','orange', 'brown', 'hotpink','deepskyblue','burlywood','turquoise','darkslategray','yellowgreen'), 'pendleton'),
+  ButlerCouncil=create_leaflet(elections$ButlerCouncil, names(elections$ButlerCouncil[2:9]),c('purple','yellow','green','orange', 'brown', 'hotpink','deepskyblue','burlywood'), 'pendleton'),
+  President_Campbell=create_leaflet(elections$President_Campbell,names(elections$President_Campbell[2:7]),c('red','blue','yellow','orange','green','purple'), 'campbell'),
+  USSen_Campbell=create_leaflet(elections$USSen_Campbell, names(elections$USSen_Campbell[2:3]),c('red','blue'), 'campbell'),
+  USHouse4_Campbell=create_leaflet(elections$USHouse4_Campbell, names(elections$USHouse4_Campbell[2:3]),c('red','blue'), 'campbell'),
+  House64_Campbell=create_leaflet(elections$House64_Campbell, names(elections$House64_Campbell[2:3]),c('red','blue'), 'campbell'),
+  House67=create_leaflet(elections$House67, names(elections$House67[2:3]),c('red','blue'), 'campbell'),
+  House68=create_leaflet(elections$House68, names(elections$House68[2]),'red', 'campbell'),
+  CCBOE2=create_leaflet(elections$CCBOE2, names(elections$CCBOE2[2:3]),c('purple','yellow'), 'campbell'),
+  CCBOE3=create_leaflet(elections$CCBOE3, names(elections$CCBOE3[2:3]),c('purple','yellow'), 'campbell'),
+  CCBOE5=create_leaflet(elections$CCBOE5, names(elections$CCBOE5[2:3]),c('purple','yellow'), 'campbell'),
+  CCDistrictJudge=create_leaflet(elections$CCDistrictJudge, names(elections$CCDistrictJudge[2:6]),c('purple','yellow','green','orange', 'brown'), 'campbell'),
+  FtThomasCouncil=create_leaflet(elections$FtThomasCouncil, names(elections$FtThomasCouncil[2:10]),c('purple','yellow','green','orange', 'brown', 'hotpink','deepskyblue','burlywood','turquoise','darkslategray'), 'campbell'),
+  HighlandHeightsCouncil=create_leaflet(elections$HighlandHeightsCouncil, names(elections$HighlandHeightsCouncil[2:7]),c('purple','yellow','green','orange', 'brown', 'hotpink'), 'campbell'),
+  NewportCommission=create_leaflet(elections$NewportCommission, names(elections$NewportCommission[2:8]),c('purple','yellow','green','orange', 'brown', 'hotpink','deepskyblue'), 'campbell'),
+  NewportMayor=create_leaflet(elections$NewportMayor, names(elections$NewportMayor[2:3]),c('purple','yellow'), 'campbell')
 )
 
 
@@ -278,7 +393,12 @@ ui<-dashboardPage(
   dashboardHeader(title = 'Kentucky 2016 General Election',
                   titleWidth = 600),
   dashboardSidebar(
-    selectInput('county', 'Select County', c('Jefferson' = 'jefferson', 'Fayette' = 'fayette', 'Boone' = 'boone'), selected = 'jefferson'),
+    selectInput('county', 'Select County', c('Jefferson' = 'jefferson', 
+                                             'Fayette' = 'fayette', 
+                                             'Boone' = 'boone', 
+                                             'Kenton' = 'kenton', 
+                                             'Pendleton' = 'pendleton',
+                                             'Campbell' = 'campbell'), selected = 'jefferson'),
     uiOutput('selectElections')
   ),
   dashboardBody(
@@ -384,7 +504,7 @@ server<-function(input,output){
           'KY House - 61 (Partial)' = 'House61',
           'KY House - 63 (Partial)' = 'House63',
           'KY House - 66' = 'House66',
-          'KY House - 69 (Partial)' = 'House69',
+          'KY House - 69 (Partial)' = 'House69_Boone',
           'Boone County Board of Education - 1' = 'BCBOE1',
           'Boone County Board of Education - 2' = 'BCBOE2',
           'Boone County Board of Education - 3' = 'BCBOE3',
@@ -394,7 +514,62 @@ server<-function(input,output){
           'Walton City Council' = 'WaltonCityCouncil'
         ),
       'President_Boone')
-    }    else input$selected_election == 'President_Jefferson'
+    }else if(input$county == 'kenton'){
+      selectInput('election_selection', 'Election',
+                  c('President' = 'President_Kenton',
+                    'US Senate' = 'USSen_Kenton',
+                    'US House - 4 (Partial)' = 'USHouse4_Kenton',
+                    'KY Sen - 17 (Partial)' = 'Sen17',
+                    'KY Sen - 23' = 'Sen23',
+                    'KY House - 61 (Partial)' = 'House61_Kenton',
+                    'KY House - 63 (Partial)' = 'House63_Kenton',
+                    'KY House - 64 (Partial)' = 'House64',
+                    'KY House - 65' = 'House65',
+                    'KY House - 69 (Partial)' = 'House69_Kenton',
+                    'Kenton County Board of Education - 1' = 'KCBOE1',
+                    'Kenton County Board of Education - 2' = 'KCBOE2',
+                    'Kenton County Board of Education - 5' = 'KCBOE5',
+                    'Erlanger-Elsmere Board of Education' = 'ErlangerElsmereBOE',
+                    'Erlanger-Elsmere Board of Education (Unexpired Term)' = 'ErlangerElsmereBOEUE',
+                    'Covington Board of Education' = 'CovingtonBOE',
+                    'Ludlow Board of Education' = 'LudlowBOE',
+                    'Beechwood Board of Education' = 'BeechwoodBOE',
+                    'Covington Mayor' = 'CovingtonMayor',
+                    'Covington City Commission' = 'CovingtonComission',
+                    'Bromley City Council' = 'BromleyCouncil',
+                    'Crescent Springs City Council' = 'CrecentSpringsCouncil',
+                    'Crestview Hills City Council' = 'CresviewHillsCouncil'
+                  ),
+                  'President_Kenton')
+    }else if(input$county == 'pendleton'){
+      selectInput('election_selection', 'Election',
+                  c('President' = 'President_Pendleton',
+                    'US Senate' = 'USSen_Pendleton',
+                    'US House - 4 (Partial)' = 'USHouse4_Pendleton',
+                    'KY House - 78 (Partial)' = 'House78',
+                    'Falmouth City Council' = 'FalmouthCouncil',
+                    'Butler City Council' = 'ButlerCouncil'
+                  ),
+                  'President_Pendleton')
+    }else if(input$county == 'campbell'){
+     selectInput('election_selection', 'Election',
+                 c('President' = 'President_Campbell',
+                   'US Senate' = 'USSen_Campbell',
+                   'US House - 4 (Partial)' = 'USHouse4_Campbell',
+                   'KY House - 64 (Partial)' =  'House64_Campbell',
+                   'KY House - 67' = 'House67',
+                   'KY House - 68' = 'House68',
+                   'Campbell County Board of Education - 2' = 'CCBOE2',
+                   'Campbell County Board of Education - 3' = 'CCBOE3',
+                   'Campbell County Board of Education - 5' = 'CCBOE5',
+                   'Campbell County District Judge' = 'CCDistrictJudge',
+                   'Ft Thomas City Council' = 'FtThomasCouncil',
+                   'Highland Heights City Council' = 'HighlandHeightsCouncil',
+                   'Newport City Commission' = 'NewportCommission',
+                   'Newport Mayor' = 'NewportMayor'
+                 ),
+                 'President_Campbell') 
+    }else input$selected_election == 'President_Jefferson'
   })
     
 } 
